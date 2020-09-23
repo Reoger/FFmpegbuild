@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FFmpeg-build</string>
+    <string name="abi">\"CPU_ABI: \"</string>
+</resources>

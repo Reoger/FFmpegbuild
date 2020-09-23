@@ -1,0 +1,3 @@
+include ':ffmpegLirary'
+include ':app'
+rootProject.name = "FFmpeg-build"
