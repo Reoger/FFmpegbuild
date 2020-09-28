@@ -67,6 +67,7 @@ JNIEXPORT jint JNICALL
 Java_com_dayuwuxian_ffmpeg_FFmpegInvoker_exec(JNIEnv *env, jclass clazz, jint cmdnum, jobjectArray cmdline) {
     (*env)->GetJavaVM(env, &jvm);
     m_clazz = (*env)->NewGlobalRef(env, clazz);
+    LOGI("env is", (*env), " jvm is ", (*jvm));
     //---------------------------------C语言 反射Java 相关----------------------------------------
     //---------------------------------java 数组转C语言数组----------------------------------------
     int i = 0;//满足NDK所需的C99标准

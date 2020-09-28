@@ -3,18 +3,20 @@ package com.dayuwuxian.ffmpeg_build.ui.main
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.dayuwuxian.ffmpeg.FFmpegCmd
 import com.dayuwuxian.ffmpeg.FFmpegInvoker
 import com.dayuwuxian.ffmpeg_build.R
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class TestFragment : Fragment() {
+
+    private val TAG = "TestFragment"
 
     private var mProgressDialog: ProgressDialog? = null
 
@@ -36,6 +38,7 @@ class TestFragment : Fragment() {
         }
 
         override fun onProgress(percent: Float) {
+            Log.d(TAG, "progress : $percent")
             updateProgress(percent)
         }
     }
@@ -59,24 +62,44 @@ class TestFragment : Fragment() {
         btn_cut.setOnClickListener {
             showProgress()
             val savePath = "sdcard/ffmpeg/out.mp4"
-            val cmd = FFmpegCmd()
-            cmd.append("-ss").append(1)
-            cmd.append("-t").append(500)
-            cmd.append("-accurate_seek")
-            cmd.append("-i").append(videoPath)
-            cmd.append("-codec").append("copy")
-            cmd.append(savePath)
+            val cmd: Array<String> = arrayOf(
+                "ffmpeg",
+                "-y",
+                "-ss",
+                "1",
+                "-t",
+                "500",
+                "-accurate_seek",
+                "-i",
+                videoPath,
+                "-codec",
+                "copy",
+                savePath
+            )
 //        String cmd = "ffmpeg -y -ss 1 -t 500 -accurate_seek -i " + videoPath2 + " -codec copy " + savePath;
-            FFmpegInvoker.exec(cmd.build(), mCallback)
+            FFmpegInvoker.exec(cmd, mCallback)
         }
 
         btn_extract.setOnClickListener {
-            //libshine
-//            val cmd =
-//                "ffmpeg-y -i sdcard/ffmpeg/video.mp4 -vn -acodec libmp3lame -ab 128K -ar 44100 -y mp3 sdcard/ffmpeg/video3.mp3";
-//            val cmd = "ffmpeg-y -i sdcard/ffmpeg/video.mp4 -vn -acodec libmp3lame -q:a 4 -y -f mp3 sdcard/ffmpeg/video3.mp3"
-            val cmd = "ffmpeg -i sdcard/ffmpeg/video.mp4 -map 0:a -acodec libmp3lame sdcard/ffmpeg/out.mp3"
+            //ffmpeg, -i, sdcard/ffmpeg/video.mp4 -vcodec, libx264, -acodec, libmp3lame, sdcard/ffmpeg/video3.mp3]
+            val cmd: Array<String> = arrayOf(
+                "ffmpeg",
+                "-i",
+                videoPath,
+                "-vcodec",
+                "libx264",
+                "-acodec",
+                "libmp3lame",
+                "-y",
+                "sdcard/ffmpeg/out5.mp3"
+            )
+            showProgress()
             FFmpegInvoker.exec(cmd, mCallback)
+        }
+
+        btn_info.setOnClickListener {
+
+
         }
     }
 

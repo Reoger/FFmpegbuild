@@ -33,6 +33,7 @@ int ffmpeg_thread_run_cmd(int cmdnum,char **argv){
     num=cmdnum;
     argvs=argv;
 
+    LOGI("cmdnum: " , strerror(cmdnum));
     int temp =pthread_create(&ntid,NULL,thread,NULL);
     if(temp!=0)
     {

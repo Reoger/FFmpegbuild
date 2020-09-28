@@ -4,10 +4,19 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { //这部分为新增部分（artifactory放开匿名访问权限，可去掉认证模块）
+            url 'http://mvn.snappea.com/artifactory/libs-release/'
+            credentials {
+                username "builder"
+                password "N0tsVaxMssjk@CompilelTFbA#"
+            }
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.9.3"
+        classpath 'com.snappea.gradle-plugin:and-publish-plugin:1.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

@@ -1,7 +1,5 @@
 package com.dayuwuxian.ffmpeg;
 
-import android.util.Log;
-
 /**
  * create on 2020/9/23 11:07
  * @author luojie
@@ -29,13 +27,9 @@ public class FFmpegInvoker {
 
     public static native String getAVFilterInfo();
 
-    public static void exec(String cmd, Callback listener) {
+    public static void exec(String[] cmd, Callback listener) {
         sCallback = listener;
-
-        String[] cmds = cmd.split(" ");
-        Log.i(TAG, "ffmpeg cmd:" + cmd);
-
-        exec(cmds.length, cmds);
+        exec(cmd.length, cmd);
     }
 
     /**
